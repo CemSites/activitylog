@@ -3,6 +3,7 @@
 namespace Spatie\Activitylog\Handlers;
 
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
 
 class EloquentHandler implements ActivitylogHandlerInterface
@@ -18,11 +19,13 @@ class EloquentHandler implements ActivitylogHandlerInterface
      */
     public function log($text, $userId = '', $attributes = [])
     {
+       $path = Request::decodedPath();
         Activity::create(
             [
                 'text' => $text,
                 'user_id' => ($userId == '' ? null : $userId),
                 'ip_address' => $attributes['ipAddress'],
+                'route' => $path,
             ]
         );
 

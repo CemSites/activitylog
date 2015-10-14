@@ -19,13 +19,17 @@ class EloquentHandler implements ActivitylogHandlerInterface
      */
     public function log($text, $userId = '', $attributes = [])
     {
-       $path = Request::decodedPath();
+        $path = Request::decodedPath();
+        $method = Request::getMethod();
+        $ajax = Request::ajax() ? 1 : 0;
         Activity::create(
             [
                 'text' => $text,
                 'user_id' => ($userId == '' ? null : $userId),
                 'ip_address' => $attributes['ipAddress'],
                 'route' => $path,
+                'method' => $method,
+                'ajax' => $ajax,
             ]
         );
 

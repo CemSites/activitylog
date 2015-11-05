@@ -12,9 +12,10 @@ trait LogsActivity
             static::$eventName(function (LogsActivityInterface $model) use ($eventName) {
 
                 $message = $model->getActivityDescriptionForEvent($eventName);
+                $details = $model->getActivityDetailsForEvent($eventName);
 
                 if ($message != '') {
-                    Activity::log($message);
+                    Activity::log($message, '', $details);
                 }
             });
         }

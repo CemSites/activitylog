@@ -45,17 +45,22 @@ class ActivitylogSupervisor
      *
      * @param $text
      * @param string $userId
+     * @param array $details
      *
      * @return bool
      */
-    public function log($text, $userId = '')
+    public function log($text, $userId = '', $details = [])
     {
         $userId = $this->normalizeUserId($userId);
 
         $ipAddress = Request::getClientIp();
 
+        $record_type = isset($details['record_type']) ? $details['record_type'] : '';
+        $record_id = isset($details['record_id']) ? $details['record_id'] : '';
+        $view_link = isset($details['view_link']) ? $details['view_link'] : '';
+
         foreach ($this->logHandlers as $logHandler) {
-            $logHandler->log($text, $userId, compact('ipAddress'));
+            $logHandler->log($text, $userId, compact('ipAddress','record_id','record_type','view_link'));
         }
 
         return true;

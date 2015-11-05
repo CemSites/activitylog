@@ -25,10 +25,13 @@ class EloquentHandler implements ActivitylogHandlerInterface
         Activity::create(
             [
                 'text' => $text,
+                'record_type' => isset($attributes['record_type']) ? $attributes['record_type']:'',
+                'record_id' => isset($attributes['record_id']) ? $attributes['record_id']:'',
                 'user_id' => ($userId == '' ? null : $userId),
                 'ip_address' => $attributes['ipAddress'],
                 'route' => $path,
                 'method' => $method,
+                'view_link' => isset($attributes['view_link']) ? $attributes['view_link']:'',
                 'ajax' => $ajax,
             ]
         );

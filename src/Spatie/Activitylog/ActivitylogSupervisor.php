@@ -58,9 +58,10 @@ class ActivitylogSupervisor
         $record_type = isset($details['record_type']) ? $details['record_type'] : '';
         $record_id = isset($details['record_id']) ? $details['record_id'] : '';
         $view_link = isset($details['view_link']) ? $details['view_link'] : '';
+        $activity_type = isset($details['activity_type']) ? $details['activity_type'] : '';
 
         foreach ($this->logHandlers as $logHandler) {
-            $logHandler->log($text, $userId, compact('ipAddress','record_id','record_type','view_link'));
+            $logHandler->log($text, $userId, compact('ipAddress','record_id','record_type','view_link','activity_type'));
         }
 
         return true;

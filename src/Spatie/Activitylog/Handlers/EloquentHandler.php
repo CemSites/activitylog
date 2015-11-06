@@ -24,6 +24,7 @@ class EloquentHandler implements ActivitylogHandlerInterface
         $ajax = Request::ajax() ? 1 : 0;
         Activity::create(
             [
+                'activity_type' => $attributes['activity_type'],
                 'text' => $text,
                 'record_type' => isset($attributes['record_type']) ? $attributes['record_type']:'',
                 'record_id' => isset($attributes['record_id']) ? $attributes['record_id']:'',
